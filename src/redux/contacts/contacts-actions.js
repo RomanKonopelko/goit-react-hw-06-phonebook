@@ -1,27 +1,30 @@
+import actionTypes from './contacts-types';
+
+const { ADD_CONTACT, DELETE_CONTACT, FILTER_CONTACTS, SET_FILTER } = actionTypes;
+
 export const addContact = value => {
   return {
-    type: 'app/addContact',
+    type: ADD_CONTACT,
     payload: value,
   };
 };
 
 export const deleteContact = id => {
   return {
-    type: 'app/deleteContact',
+    type: DELETE_CONTACT,
     payload: id,
   };
 };
 
 export const getFilteredContact = () => {
   return {
-    type: 'app/getFilteredContact',
-    payload: null,
+    type: FILTER_CONTACTS,
   };
 };
 
 export const getFilter = value => {
   return {
-    type: 'app/getFilter',
+    type: SET_FILTER,
     payload: value,
   };
 };
