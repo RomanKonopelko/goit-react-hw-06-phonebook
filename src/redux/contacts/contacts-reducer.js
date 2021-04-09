@@ -1,45 +1,30 @@
 import { combineReducers } from 'redux';
+import { createReducer } from '@reduxjs/toolkit';
 import { v4 as randomID } from 'uuid';
-import actionTypes from './contacts-types';
+import * as actions from './contacts-actions';
+const filterReducer = createReducer('', {
+  [actions.getFilter]: (_, { payload }) => payload,
+});
 
-const { ADD_CONTACT, DELETE_CONTACT, SET_FILTER } = actionTypes;
-
-const filterReducer = (state = '', { type, payload }) => {
-  switch (type) {
-    case SET_FILTER:
-      return payload;
-
-    default:
+const contactsReducer = createReducer([], {
+  [actions.addContact]: (state, { payload }) => {
+    const newContact = {
+      id: randomID(),
+      name: payload.name,
+      number: payload.number,
+    };
+    const existedContact = state.filter(
+      contact => contact.name === newContact.name || contact.number === newContact.number,
+    );
+    if (existedContact.length === 0) {
+      return [...state, { ...newContact }];
+    } else {
+      alert('this contact or number already exist');
       return state;
-  }
-};
-
-const contactsReducer = (state = [], { type, payload }) => {
-  switch (type) {
-    case ADD_CONTACT:
-      const newContact = {
-        id: randomID(),
-        name: payload.name,
-        number: payload.number,
-      };
-      console.log(newContact);
-      const existedContact = state.filter(
-        contact => contact.name === newContact.name || contact.number === newContact.number,
-      );
-      if (existedContact.length === 0) {
-        return [...state, { ...newContact }];
-      } else {
-        alert('this contact or number already exist');
-        return state;
-      }
-
-    case DELETE_CONTACT:
-      return state.filter(contact => payload !== contact.id);
-
-    default:
-      return state;
-  }
-};
+    }
+  },
+  [actions.deleteContact]: (state, { payload }) => state.filter(({ id }) => payload !== id),
+});
 
 const contactsAppReducer = combineReducers({
   contacts: contactsReducer,
