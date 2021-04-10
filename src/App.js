@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { v4 as randomID } from 'uuid';
+
 import { connect } from 'react-redux';
 import Form from './Components/Form';
 import Filter from './Components/Filter';
@@ -8,28 +8,7 @@ import Container from './Components/Container';
 import s from './form.module.css';
 
 class App extends Component {
-  randomID = randomID();
-
-  // componentDidMount() {
-  //   console.log('ComponentisMounted');
-
-  //   const contacts = localStorage.getItem('contacts');
-  //   const parsedContacts = JSON.parse(contacts);
-
-  //   if (parsedContacts) {
-  //     console.log(parsedContacts);
-  //     this.props.onSubmit(parsedContacts);
-  //   }
-  // }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (this.setState.contacts !== prevState.contacts) {
-  //     localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-  //   }
-  // }
-
   render() {
-    console.log(this.props.contactsData);
     return (
       <Container className={s.form__container} title="Phonebook">
         <Form onSubmit={this.props.onSubmit} />

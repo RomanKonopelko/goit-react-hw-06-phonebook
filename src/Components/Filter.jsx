@@ -40,7 +40,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onDeleteContact: id => dispatch(actions.deleteContact(id)),
-        getFilteredContacts: () => dispatch(actions.getFilteredContact()),
         getFilter: value => dispatch(actions.getFilter(value)),
     };
 };
